@@ -58,7 +58,10 @@ class Tracker extends React.Component {
     super(props);
     this.state = {
       project_id: "",
-      json: buildJson()
+      json: buildJson(),
+      story_url: "",
+      result: "Parser",
+      alert_class: "info"
     }
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.updateText = this.updateText.bind(this);
@@ -77,14 +80,19 @@ class Tracker extends React.Component {
     .done(function(response) {
       this.setState(
         {
-          json: response
+          json: response,
+          result: "Success",
+          story_url: response.url,
+          alert_class: "success"
         }
       );
     }.bind(this))
     .error(function(response) {
       this.setState(
         {
-          json: response
+          json: response,
+          result: "Failure",
+          alert_class: "danger"
         }
       );
     }.bind(this));
@@ -99,7 +107,9 @@ class Tracker extends React.Component {
   updateText(raw_text) {    
     this.setState(
     {
-      json: buildJson(raw_text.target.value)
+      json: buildJson(raw_text.target.value),
+      alert_class: "info",
+      result: "Parser"
     });
   }
   render() {
@@ -114,6 +124,9 @@ class Tracker extends React.Component {
         <TrackerOutput 
           json={this.state.json} 
           project_id={this.state.project_id}
+          story_url={this.state.story_url}
+          result={this.state.result}
+          alert_class={this.state.alert_class}
         />
         <TrackerSubmit onClick={this.submitStory} />
       </div>
@@ -179,7 +192,10 @@ class TrackerInput extends React.Component {
 const TrackerOutput = (props) =>
   <div className="TrackerOutput">
     <hr />
-    <p><strong>Output:</strong></p>
+    <div className={"alert alert-" + props.alert_class}>
+      <strong>{props.result} Output:</strong>
+    </div>
+    <p><strong>{props.result} Output:</strong></p>
     <pre>{JSON.stringify(props.json, null, 2)}</pre>
     <pre>project_id:{props.project_id}</pre>
   </div>
