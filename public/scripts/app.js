@@ -174,7 +174,7 @@ class TrackerInput extends React.Component {
       </div>
     );
   }
-} 
+}
 
 const TrackerOutput = (props) =>
   <div className="TrackerOutput">
