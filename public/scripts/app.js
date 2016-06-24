@@ -63,7 +63,7 @@ class Tracker extends React.Component {
       json: buildJson(),
       story_url: "",
       result: "Parser",
-      alert_class: "info"
+      alert_class: "info",
     }
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.updateText = this.updateText.bind(this);
@@ -76,7 +76,7 @@ class Tracker extends React.Component {
         headers: {"X-TrackerToken": this.props.token},
         data: this.state.json,
         dataType: "json",
-        type: "POST"
+        type: "POST",
       }
     )
     .done(function(response) {
@@ -84,7 +84,7 @@ class Tracker extends React.Component {
         {
           json: response,
           result: "Success",
-          alert_class: "success"
+          alert_class: "success",
           story_url: response.url,
         }
       );
@@ -95,7 +95,7 @@ class Tracker extends React.Component {
           json: response,
           result: "Failure",
           alert_class: "danger",
-          story_url: ""
+          story_url: "",
         }
       );
     }.bind(this));
@@ -113,7 +113,7 @@ class Tracker extends React.Component {
       json: buildJson(raw_text.target.value),
       result: "Parser",
       alert_class: "info",
-      story_url: ""
+      story_url: "",
     });
   }
   render() {
