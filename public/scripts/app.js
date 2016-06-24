@@ -208,7 +208,7 @@ const TrackerOutput = (props) =>
 
 const TrackerSubmit = (props) =>
   <div className="TrackerSubmit">
-    <input type="submit" onClick={props.onClick} class="btn btn-primary" value="Create Story!"/>
+    <button type="button" onClick={props.onClick} className="btn btn-primary btn-lg">Create Story!</button>
   </div>
 
 ReactDOM.render(
