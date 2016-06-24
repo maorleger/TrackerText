@@ -32,7 +32,7 @@ var buildJson = function(raw_text = "") {
   let name = parseText(raw_text, /\bnm:(.*)\\nm\b/g);
   let story_type = parseText(raw_text, /\btype:(feature|bug|chore|release)\b/g);
   let integration_id = parseText(raw_text, /\bintid:(\d+)\b/g);
-  let current_state = parseText(raw_text, /\bstate:(accepted|delivered|finished|started|rejected|planned|unstarted|unscheduled)\b/g)
+  let current_state = parseText(raw_text, /\bstate:(accepted|delivered|finished|started|rejected|planned|unstarted|unscheduled)\b/g);
   let json = {
     description: buildDescription(raw_text, estimate, name, story_type, integration_id, current_state)
   };
