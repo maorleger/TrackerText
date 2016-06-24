@@ -156,7 +156,6 @@ class TrackerProjectDropdown extends React.Component {
       this.setState({
         projects: projects
       });
-      debugger;
     }.bind(this));
   }
   componentWillUnmount() {
