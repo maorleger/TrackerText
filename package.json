@@ -1,0 +1,25 @@
+{
+  "name": "tracker-text",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Using React for parsing out tracker story creation",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.4.3",
+    "express": "^4.4.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "mleger",
+  "engines" : {
+    "node" : "0.12.x"
+  }
+}

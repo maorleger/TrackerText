@@ -1,0 +1,8 @@
+{
+  "name": "TrackerText",
+  "description": "Using React for parsing out tracker story creation",
+  "success_url": "/",
+  "env" : {
+    "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-nodejs.git"
+  }
+}
