@@ -1,4 +1,6 @@
-
+// TODO:
+// 1. Glossary
+// 2. Use project-configured point scale on project change
 
 
 ///////////////////////// HELPER FUNCTIONS ///////////////////////////////
@@ -63,7 +65,7 @@ class Tracker extends React.Component {
       json: buildJson(),
       story_url: "",
       result: "Parser",
-      alert_class: "info",
+      alert_class: "info",  
     }
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.updateText = this.updateText.bind(this);
@@ -154,6 +156,7 @@ class TrackerProjectDropdown extends React.Component {
       this.setState({
         projects: projects
       });
+      debugger;
     }.bind(this));
   }
   componentWillUnmount() {
