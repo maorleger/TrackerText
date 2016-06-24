@@ -62,6 +62,32 @@ class Tracker extends React.Component {
     }
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.updateText = this.updateText.bind(this);
+    this.submitStory = this.submitStory.bind(this);
+  }
+  submitStory() {
+    var serverRequest = $.ajax(
+      this.props.baseTrackerUrl + this.state.project_id + "/stories",
+      {
+        headers: {"X-TrackerToken": this.props.token},
+        data: this.state.json,
+        dataType: "json",
+        type: "POST"
+      }
+    )
+    .done(function(response) {
+      this.setState(
+        {
+          json: response
+        }
+      );
+    }.bind(this))
+    .error(function(response) {
+      this.setState(
+        {
+          json: response
+        }
+      );
+    }.bind(this));
   }
   handleDropdownChange(e) {    
     this.setState(
@@ -89,6 +115,7 @@ class Tracker extends React.Component {
           json={this.state.json} 
           project_id={this.state.project_id}
         />
+        <TrackerSubmit onClick={this.submitStory} />
       </div>
     );
   }
@@ -155,6 +182,11 @@ const TrackerOutput = (props) =>
     <p><strong>Output:</strong></p>
     <pre>{JSON.stringify(props.json, null, 2)}</pre>
     <pre>project_id:{props.project_id}</pre>
+  </div>
+
+const TrackerSubmit = (props) =>
+  <div className="TrackerSubmit">
+    <input type="submit" onClick={props.onClick} class="btn btn-primary" value="Create Story!"/>
   </div>
 
 ReactDOM.render(
