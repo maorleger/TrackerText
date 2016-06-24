@@ -214,7 +214,7 @@ const TrackerSubmit = (props) =>
 
 ReactDOM.render(
   <Tracker 
-    token="b7596fdfbece137e5908609d0ed6e3b2" 
+    token="" 
     baseTrackerUrl="https://www.pivotaltracker.com/services/v5/projects/"
   />,
   document.getElementById('content')
