@@ -30,20 +30,22 @@ var buildJson = function(raw_text = "") {
   let name = parseText(raw_text, /\bnm:(.*)\\nm\b/g);
   let story_type = parseText(raw_text, /\btype:(feature|bug|chore|release)\b/g);
   let integration_id = parseText(raw_text, /\bintid:(\d+)\b/g);
+  let current_state = parseText(raw_text, /\bstate:(accepted|delivered|finished|started|rejected|planned|unstarted|unscheduled)\b/g)
   let json = {
-    description: buildDescription(raw_text, estimate, name, story_type, integration_id)
+    description: buildDescription(raw_text, estimate, name, story_type, integration_id, current_state)
   };
   if (estimate.parsed_value) {
     json['estimate'] = estimate.parsed_value;
-  }
-  if (name.parsed_value) {
-    json['name'] = name.parsed_value;
-  }
+  }  
+  json['name'] = name.parsed_value || json['description'];
   if (story_type.parsed_value) {
     json['story_type'] = story_type.parsed_value;
   }
   if (integration_id.parsed_value) {
     json['integration_id'] = integration_id.parsed_value;
+  }
+  if (current_state.parsed_value) {
+    json['current_state'] = current_state.parsed_value;
   }
   return json;
 }
@@ -82,8 +84,8 @@ class Tracker extends React.Component {
         {
           json: response,
           result: "Success",
-          story_url: response.url,
           alert_class: "success"
+          story_url: response.url,
         }
       );
     }.bind(this))
@@ -92,7 +94,8 @@ class Tracker extends React.Component {
         {
           json: response,
           result: "Failure",
-          alert_class: "danger"
+          alert_class: "danger",
+          story_url: ""
         }
       );
     }.bind(this));
@@ -100,7 +103,7 @@ class Tracker extends React.Component {
   handleDropdownChange(e) {    
     this.setState(
       { 
-        project_id: e.target.value
+        project_id: e.target.value,
       }
     );
   }
@@ -108,8 +111,9 @@ class Tracker extends React.Component {
     this.setState(
     {
       json: buildJson(raw_text.target.value),
+      result: "Parser",
       alert_class: "info",
-      result: "Parser"
+      story_url: ""
     });
   }
   render() {
@@ -195,7 +199,7 @@ const TrackerOutput = (props) =>
     <div className={"alert alert-" + props.alert_class}>
       <strong>{props.result} Output:</strong>
     </div>
-    <p><strong>{props.result} Output:</strong></p>
+    <p><a href={props.story_url} target="_blank">{props.story_url}</a></p>
     <pre>{JSON.stringify(props.json, null, 2)}</pre>
     <pre>project_id:{props.project_id}</pre>
   </div>
